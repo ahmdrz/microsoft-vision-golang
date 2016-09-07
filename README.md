@@ -8,7 +8,7 @@ A library for communication with microsoft cognitive services API written in Gol
 
 Nothing ! I wrote this library on Golang 1.5.4 linux/amd64
 
-So it will work on Golang 1.5 or later
+So it will work on Golang 1.5 or later ( Tested on Golang 1.5 , 1.6 , 1.7 according to travis-cl )
 
 ### <b style="color:red;">RTFM !</b>
 
