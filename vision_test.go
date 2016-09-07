@@ -5,13 +5,14 @@ import (
 	"testing"
 )
 
-var key string = ""
+var key string = "-"
 
 func TestAnalyze(t *testing.T) {
 	vision, _ := New(key)
-	vision.Analyze("https://portalstoragewuprod2.azureedge.net/vision/Analysis/1.jpg", VisualFeatures{
-		Categories: true,
+	result := vision.Analyze("https://portalstoragewuprod2.azureedge.net/vision/Analysis/1.jpg", VisualFeatures{
+		Tags: true,
 	})
+	fmt.Println(result)
 }
 
 func TestMakeString(t *testing.T) {

@@ -2,6 +2,7 @@
 package vision
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -18,8 +19,12 @@ func New(key string) (*Vision, error) {
 	}, nil
 }
 
-func (vision *Vision) Analyze(url string, order VisualFeatures) {
-	apiURL := URL + "/analyze?visualFeatures&"
+func (vision *Vision) Analyze(url string, order VisualFeatures) VisionResult {
+	query, err := order.String()
+	if err != nil {
+		panic(err)
+	}
+	apiURL := URL + "/analyze?visualFeatures=" + query
 
 	req, err := http.NewRequest("POST", apiURL, strings.NewReader("{\"url\":\""+url+"\"}"))
 	if err != nil {
@@ -36,7 +41,15 @@ func (vision *Vision) Analyze(url string, order VisualFeatures) {
 	defer resp.Body.Close()
 
 	body, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println(string(body))
+
+	result := VisionResult{}
+	err = json.Unmarshal(body, &result)
+	if err != nil {
+		panic(err)
+	}
+
+	vision.LastRequestID = result.RequestID
+	return result
 }
 
 func (order VisualFeatures) String() (string, error) {
