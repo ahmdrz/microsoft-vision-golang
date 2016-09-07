@@ -1,7 +1,8 @@
 # microsoft-vision-golang
 A library for communication with microsoft cognitive services API written in Golang
-***
+
 [![Build Status](https://travis-ci.org/ahmdrz/microsoft-vision-golang.svg?branch=master)](https://travis-ci.org/ahmdrz/microsoft-vision-golang)
+[![Coverage Status](https://coveralls.io/repos/github/ahmdrz/microsoft-vision-golang/badge.svg?branch=master)](https://coveralls.io/github/ahmdrz/microsoft-vision-golang?branch=master)
 
 
 ### Dependencies 
