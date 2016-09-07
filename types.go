@@ -1,5 +1,10 @@
 package vision
 
+import (
+	"fmt"
+	"reflect"
+)
+
 type Vision struct {
 	BingKey       string
 	LastRequestID string
@@ -26,6 +31,31 @@ type VisualFeatures struct {
 	ImageType   bool
 	Color       bool
 	Adult       bool
+}
+
+func (order VisualFeatures) String() (string, error) {
+	var (
+		v = make([]string, 0)
+		s = reflect.ValueOf(order)
+		t = reflect.TypeOf(order)
+	)
+
+	for i := 0; i < s.NumField(); i++ {
+		if s.Field(i).Interface().(bool) == true {
+			v = append(v, t.Field(i).Name)
+		}
+	}
+
+	if len(v) == 0 {
+		return "", fmt.Errorf("Empty v")
+	}
+
+	result := ""
+	for _, item := range v {
+		result += item + ","
+	}
+
+	return result[:len(result)-1], nil
 }
 
 type VisionResult struct {
