@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-var key string = "4f558a77503b46549ac0d784c1651d9e"
+var key string = "4f558a77503b46549ac0d784c1651d9e" // this code is sample , forget this :) my token has been changed !
 
 func TestOCR(t *testing.T) {
 	vision, err := New(key)
