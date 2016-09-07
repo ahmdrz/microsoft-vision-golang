@@ -7,6 +7,24 @@ import (
 
 var key string = "4f558a77503b46549ac0d784c1651d9e" // this code is sample , forget this :) my token has been changed !
 
+var testFile string = "test.jpg"
+
+func TestFile(t *testing.T) {
+	vision, err := New(key)
+	if err != nil {
+		t.Log(err)
+		return
+	}
+	result, err := vision.AnalyzeFile(testFile, VisualFeatures{
+		Tags: true,
+	})
+	if err != nil {
+		t.Log(err)
+		return
+	}
+	fmt.Println(result)
+}
+
 func TestOCR(t *testing.T) {
 	vision, err := New(key)
 	if err != nil {
