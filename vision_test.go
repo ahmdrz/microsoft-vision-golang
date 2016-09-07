@@ -10,13 +10,15 @@ var key string = ""
 func TestAnalyze(t *testing.T) {
 	vision, err := New(key)
 	if err != nil {
-		t.Fatal(err)
+		t.Log(err)
+		return
 	}
 	result, err := vision.Analyze("https://portalstoragewuprod2.azureedge.net/vision/Analysis/1.jpg", VisualFeatures{
 		Tags: true,
 	})
 	if err != nil {
-		t.Fatal(err)
+		t.Log(err)
+		return
 	}
 	fmt.Println(result)
 }
@@ -24,11 +26,13 @@ func TestAnalyze(t *testing.T) {
 func TestTag(t *testing.T) {
 	vision, err := New(key)
 	if err != nil {
-		t.Fatal(err)
+		t.Log(err)
+		return
 	}
 	result, err := vision.Tag("https://portalstoragewuprod2.azureedge.net/vision/Analysis/1.jpg")
 	if err != nil {
-		t.Fatal(err)
+		t.Log(err)
+		return
 	}
 	fmt.Println(result)
 }
