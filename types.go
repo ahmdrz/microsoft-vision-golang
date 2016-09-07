@@ -58,6 +58,84 @@ func (order VisualFeatures) String() (string, error) {
 	return result[:len(result)-1], nil
 }
 
+type OCROption struct {
+	Language          string
+	DetectOrientation bool
+}
+
+func (order OCROption) String() string {
+	if order.Language == "" {
+		order.Language = LANG_AutoDetect
+	}
+	if order.DetectOrientation {
+		return "language=" + order.Language + "&detectOrientation=" + "true"
+	}
+	return "language=" + order.Language + "&detectOrientation=" + "false"
+}
+
+const (
+	LANG_AutoDetect         string = "unk"
+	LANG_ChineseSimplified  string = "zh-Hans"
+	LANG_ChineseTraditional string = "zh-Hant"
+	LANG_Czech              string = "cs"
+	LANG_Danish             string = "da"
+	LANG_Dutch              string = "nl"
+	LANG_English            string = "en"
+	LANG_Finnish            string = "fi"
+	LANG_French             string = "fr"
+	LANG_German             string = "de"
+	LANG_Greek              string = "el"
+	LANG_Hungarian          string = "hu"
+	LANG_Italian            string = "it"
+	LANG_Japanese           string = "Ja"
+	LANG_Korean             string = "ko"
+	LANG_Norwegian          string = "nb"
+	LANG_Polish             string = "pl"
+	LANG_Portuguese         string = "pt"
+	LANG_Russian            string = "ru"
+	LANG_Spanish            string = "es"
+	LANG_Swedish            string = "sv"
+	LANG_Turkish            string = "tr"
+)
+
+type VisionOCRResult struct {
+	Language    string   `json:"language"`
+	TextAngle   float64  `json:"textAngle"`
+	Orientation string   `json:"orientation"`
+	Regions     []Region `json:"regions"`
+}
+
+func (order VisionOCRResult) String() (result string) {
+	result = ""
+	for _, region := range order.Regions {
+		for _, line := range region.Lines {
+			for index, word := range line.Words {
+				result += word.Text
+				if index < len(line.Words)-1 {
+					result += " "
+				}
+			}
+			result += "\n"
+		}
+	}
+	return
+}
+
+type Region struct {
+	BoundingBox string `json:"boundingBox"`
+	Lines       []Line `json:"lines"`
+}
+
+type Line struct {
+	BoundingBox string `json:"boundingBox"`
+	Words       []Word `json:"words"`
+}
+
+type Word struct {
+	BoundingBox string `json:"boundingBox"`
+	Text        string `json:"text"`
+}
+
 type VisionResult struct {
 	RequestID   string      `json:"requestId"`
 	Categories  []Category  `json:"categories"`

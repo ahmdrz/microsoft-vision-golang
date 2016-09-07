@@ -5,7 +5,23 @@ import (
 	"testing"
 )
 
-var key string = ""
+var key string = "4f558a77503b46549ac0d784c1651d9e"
+
+func TestOCR(t *testing.T) {
+	vision, err := New(key)
+	if err != nil {
+		t.Log(err)
+		return
+	}
+	result, err := vision.OCR("https://portalstoragewuprod2.azureedge.net/vision/OpticalCharacterRecognition/1.jpg", OCROption{
+		Language: LANG_English,
+	})
+	if err != nil {
+		t.Log(err)
+		return
+	}
+	fmt.Println(result.String())
+}
 
 func TestAnalyze(t *testing.T) {
 	vision, err := New(key)

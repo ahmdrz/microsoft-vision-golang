@@ -1,4 +1,6 @@
 // vision project vision.go
+// license MIT powered by github.com/ahmdrz
+// full api reference on https://dev.projectoxford.ai/docs/services/56f91f2d778daf23d8ec6739/
 package vision
 
 import (
@@ -111,4 +113,49 @@ func (vision *Vision) Tag(url string) (VisionResult, error) {
 	}
 
 	return VisionResult{}, fmt.Errorf("Unknown Error Occured , Check the key , Status : " + resp.Status)
+}
+
+func (vision *Vision) OCR(url string, order OCROption) (VisionOCRResult, error) {
+	query := order.String()
+	apiURL := URL + "/ocr?" + query
+
+	req, err := http.NewRequest("POST", apiURL, strings.NewReader("{\"url\":\""+url+"\"}"))
+	if err != nil {
+		return VisionOCRResult{}, err
+	}
+	req.Header.Set("Ocp-Apim-Subscription-Key", vision.BingKey)
+	req.Header.Set("Content-Type", "application/json")
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return VisionOCRResult{}, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode == 200 {
+		body, _ := ioutil.ReadAll(resp.Body)
+
+		result := VisionOCRResult{}
+		err = json.Unmarshal(body, &result)
+		if err != nil {
+			return VisionOCRResult{}, err
+		}
+
+		return result, nil
+	}
+
+	if resp.StatusCode == 400 || resp.StatusCode == 415 || resp.StatusCode == 500 {
+		body, _ := ioutil.ReadAll(resp.Body)
+
+		result := Error{}
+		err = json.Unmarshal(body, &result)
+		if err != nil {
+			return VisionOCRResult{}, err
+		}
+
+		return VisionOCRResult{}, fmt.Errorf(result.Code)
+	}
+
+	return VisionOCRResult{}, fmt.Errorf("Unknown Error Occured , Check the key , Status : " + resp.Status)
 }
