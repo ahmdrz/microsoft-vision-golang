@@ -8,10 +8,16 @@ import (
 var key string = "-"
 
 func TestAnalyze(t *testing.T) {
-	vision, _ := New(key)
-	result := vision.Analyze("https://portalstoragewuprod2.azureedge.net/vision/Analysis/1.jpg", VisualFeatures{
+	vision, err := New(key)
+	if err != nil {
+		t.Fatal(err)
+	}
+	result, err := vision.Analyze("https://portalstoragewuprod2.azureedge.net/vision/Analysis/1.jpg", VisualFeatures{
 		Tags: true,
 	})
+	if err != nil {
+		t.Fatal(err)
+	}
 	fmt.Println(result)
 }
 
