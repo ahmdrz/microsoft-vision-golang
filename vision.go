@@ -12,6 +12,10 @@ import (
 	"strings"
 )
 
+func toString(a int) string {
+	return strconv.Itoa(a)
+}
+
 func New(key string) (*Vision, error) {
 	if len(key) < 10 {
 		return nil, fmt.Errorf("Invalid Key")
@@ -159,10 +163,6 @@ func (vision *Vision) OCR(url string, order OCROption) (VisionOCRResult, error) 
 	}
 
 	return VisionOCRResult{}, fmt.Errorf("Unknown Error Occured , Check the key , Status : " + resp.Status)
-}
-
-func toString(a int) string {
-	return strconv.Itoa(a)
 }
 
 func (vision *Vision) Describe(url string, max int) (VisionResult, error) {

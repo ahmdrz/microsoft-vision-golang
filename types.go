@@ -5,24 +5,59 @@ import (
 	"reflect"
 )
 
+const (
+	URL                     string = "https://api.projectoxford.ai/vision/v1.0"
+	LANG_AutoDetect         string = "unk"
+	LANG_ChineseSimplified  string = "zh-Hans"
+	LANG_ChineseTraditional string = "zh-Hant"
+	LANG_Czech              string = "cs"
+	LANG_Danish             string = "da"
+	LANG_Dutch              string = "nl"
+	LANG_English            string = "en"
+	LANG_Finnish            string = "fi"
+	LANG_French             string = "fr"
+	LANG_German             string = "de"
+	LANG_Greek              string = "el"
+	LANG_Hungarian          string = "hu"
+	LANG_Italian            string = "it"
+	LANG_Japanese           string = "Ja"
+	LANG_Korean             string = "ko"
+	LANG_Norwegian          string = "nb"
+	LANG_Polish             string = "pl"
+	LANG_Portuguese         string = "pt"
+	LANG_Russian            string = "ru"
+	LANG_Spanish            string = "es"
+	LANG_Swedish            string = "sv"
+	LANG_Turkish            string = "tr"
+)
+
+// Main struct of library , contains BingKey for saving token and LastRequestID for determine the request id of last method.
 type Vision struct {
 	BingKey       string
 	LastRequestID string
 }
 
-const (
-	URL string = "https://api.projectoxford.ai/vision/v1.0"
-)
+type Error struct {
+	Code    string `json:"code"`
+	Message string `json:"message"`
+}
 
 /*
 Categories - categorizes image content according to a taxonomy defined in documentation.
+
 Tags - tags the image with a detailed list of words related to the image content.
+
 Description - describes the image content with a complete English sentence.
+
 Faces - detects if faces are present. If present, generate coordinates, gender and age.
+
 ImageType - detects if image is clipart or a line drawing.
+
 Color - determines the accent color, dominant color, and whether an image is black&white.
+
 Adult - detects if the image is pornographic in nature (depicts nudity or a sex act). Sexually suggestive content is also detected.
 */
+
 type VisualFeatures struct {
 	Categories  bool
 	Tags        bool
@@ -73,31 +108,6 @@ func (order OCROption) String() string {
 	return "language=" + order.Language + "&detectOrientation=" + "false"
 }
 
-const (
-	LANG_AutoDetect         string = "unk"
-	LANG_ChineseSimplified  string = "zh-Hans"
-	LANG_ChineseTraditional string = "zh-Hant"
-	LANG_Czech              string = "cs"
-	LANG_Danish             string = "da"
-	LANG_Dutch              string = "nl"
-	LANG_English            string = "en"
-	LANG_Finnish            string = "fi"
-	LANG_French             string = "fr"
-	LANG_German             string = "de"
-	LANG_Greek              string = "el"
-	LANG_Hungarian          string = "hu"
-	LANG_Italian            string = "it"
-	LANG_Japanese           string = "Ja"
-	LANG_Korean             string = "ko"
-	LANG_Norwegian          string = "nb"
-	LANG_Polish             string = "pl"
-	LANG_Portuguese         string = "pt"
-	LANG_Russian            string = "ru"
-	LANG_Spanish            string = "es"
-	LANG_Swedish            string = "sv"
-	LANG_Turkish            string = "tr"
-)
-
 type VisionOCRResult struct {
 	Language    string   `json:"language"`
 	TextAngle   float64  `json:"textAngle"`
@@ -105,6 +115,7 @@ type VisionOCRResult struct {
 	Regions     []Region `json:"regions"`
 }
 
+// this method can make a full sentence from OCR result
 func (order VisionOCRResult) String() (result string) {
 	result = ""
 	for _, region := range order.Regions {
