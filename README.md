@@ -4,6 +4,7 @@ A library for communication with microsoft cognitive services API written in Gol
 [![Build Status](https://travis-ci.org/ahmdrz/microsoft-vision-golang.svg?branch=master)](https://travis-ci.org/ahmdrz/microsoft-vision-golang)
 [![Coverage Status](https://coveralls.io/repos/github/ahmdrz/microsoft-vision-golang/badge.svg?branch=master)](https://coveralls.io/github/ahmdrz/microsoft-vision-golang?branch=master)
 [![GoDoc](https://godoc.org/github.com/ahmdrz/microsoft-vision-golang?status.svg)](https://godoc.org/github.com/ahmdrz/microsoft-vision-golang) 
+[![GoReport](https://goreportcard.com/badge/github.com/ahmdrz/microsoft-vision-golang)](https://goreportcard.com/report/github.com/ahmdrz/microsoft-vision-golang) 
 
 
 ### Dependencies 
