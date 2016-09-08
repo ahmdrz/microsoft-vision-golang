@@ -152,7 +152,7 @@ type VisionResult struct {
 	Categories  []Category  `json:"categories"`
 	Adult       Adult       `json:"adult"`
 	Faces       []Face      `json:"faces"`
-	ImageType   ImageType   `json:"imageType`
+	ImageType   ImageType   `json:"imageType"`
 	Color       Color       `json:"color"`
 	MetaData    MetaData    `json:"metadata"`
 	Description Description `json:"description"`
@@ -166,12 +166,12 @@ type Tag struct {
 
 type Description struct {
 	Tags     []string  `json:"tags"`
-	Captions []Caption `json:"captions`
+	Captions []Caption `json:"captions"`
 }
 
 type Caption struct {
 	Text       string  `json:"text"`
-	Confidence float64 `json:"confidence`
+	Confidence float64 `json:"confidence"`
 }
 
 type MetaData struct {
@@ -184,7 +184,7 @@ type Color struct {
 	DominantColorForeground string   `json:"dominantColorForeground"`
 	DominantColorBackground string   `json:"dominantColorBackground"`
 	AccentColor             string   `json:"accentColor"`
-	IsBWImg                 bool     `json:"isBWImg`
+	IsBWImg                 bool     `json:"isBWImg"`
 	DominantColors          []string `json:"dominantColors"`
 }
 
