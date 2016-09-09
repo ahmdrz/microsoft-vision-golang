@@ -11,7 +11,7 @@ A library for communication with microsoft cognitive services API written in Gol
 
 Nothing ! I wrote this library on Golang 1.5.4 linux/amd64
 
-So it will work on Golang 1.5 or later ( Tested on Golang 1.5 , 1.6 , 1.7 according to travis-cl )
+According to [travis-cl](https://travis-ci.org/ahmdrz/microsoft-vision-golang) will work on Golang 1.2 or later
 
 ### <b style="color:red;">RTFM !</b>
 
