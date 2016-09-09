@@ -2,6 +2,7 @@ package vision
 
 import (
 	"fmt"
+	"os"
 	"reflect"
 )
 
@@ -216,4 +217,32 @@ type Adult struct {
 type Category struct {
 	Name  string  `json:"name"`
 	Score float32 `json:"score"`
+}
+
+type Model struct {
+	Name       string   `json:"name"`
+	Categories []string `json:"categories"`
+}
+
+type Image struct {
+	Image []byte
+}
+
+func (image Image) Save(path string) error {
+	f, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	_, err = f.Write(image.Image)
+	if err != nil {
+		return err
+	}
+	return f.Sync()
+}
+
+type ThumbnailOrder struct {
+	Width         int
+	Height        int
+	SmartCropping bool
 }

@@ -12,6 +12,13 @@ import (
 	"strings"
 )
 
+func toStringBool(a bool) string {
+	if a {
+		return "true"
+	}
+	return "false"
+}
+
 func toString(a int) string {
 	return strconv.Itoa(a)
 }
@@ -183,7 +190,6 @@ func (vision *Vision) Describe(url string, max int) (VisionResult, error) {
 
 	if resp.StatusCode == 200 {
 		body, _ := ioutil.ReadAll(resp.Body)
-		fmt.Println(string(body))
 
 		result := VisionResult{}
 		err = json.Unmarshal(body, &result)
@@ -208,4 +214,96 @@ func (vision *Vision) Describe(url string, max int) (VisionResult, error) {
 	}
 
 	return VisionResult{}, fmt.Errorf("Unknown Error Occured , Check the key , Status : " + resp.Status)
+}
+
+func (vision *Vision) GetModels() ([]Model, error) {
+	apiURL := URL + "/models"
+
+	req, err := http.NewRequest("GET", apiURL, nil)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("Ocp-Apim-Subscription-Key", vision.BingKey)
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode == 200 {
+		body, _ := ioutil.ReadAll(resp.Body)
+
+		var result struct {
+			Models []Model `json:"models"`
+		}
+		err = json.Unmarshal(body, &result)
+		if err != nil {
+			return nil, err
+		}
+
+		return result.Models, nil
+	}
+
+	if resp.StatusCode == 400 || resp.StatusCode == 415 || resp.StatusCode == 500 {
+		body, _ := ioutil.ReadAll(resp.Body)
+
+		result := Error{}
+		err = json.Unmarshal(body, &result)
+		if err != nil {
+			return nil, err
+		}
+
+		return nil, fmt.Errorf(result.Code)
+	}
+
+	return nil, fmt.Errorf("Unknown Error Occured , Check the key , Status : " + resp.Status)
+}
+
+func (vision *Vision) Thumbnail(url string, order ThumbnailOrder) (Image, error) {
+	if order.Width < 1 || order.Width > 1024 {
+		return Image{}, fmt.Errorf("Incorrect width")
+	}
+	if order.Height < 1 || order.Height > 1024 {
+		return Image{}, fmt.Errorf("Incorrect height")
+	}
+
+	apiURL := URL + "/generateThumbnail?width=" + toString(order.Width) + "&height=" + toString(order.Height) + "&smartCropping=" + toStringBool(order.SmartCropping)
+
+	req, err := http.NewRequest("POST", apiURL, strings.NewReader("{\"url\":\""+url+"\"}"))
+	if err != nil {
+		return Image{}, err
+	}
+	req.Header.Set("Ocp-Apim-Subscription-Key", vision.BingKey)
+	req.Header.Set("Content-Type", "application/json")
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return Image{}, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode == 200 {
+		body, _ := ioutil.ReadAll(resp.Body)
+
+		return Image{
+			Image: body,
+		}, nil
+	}
+
+	if resp.StatusCode == 400 || resp.StatusCode == 415 || resp.StatusCode == 500 {
+		body, _ := ioutil.ReadAll(resp.Body)
+
+		result := Error{}
+		err = json.Unmarshal(body, &result)
+		if err != nil {
+			return Image{}, err
+		}
+
+		return Image{}, fmt.Errorf(result.Code)
+	}
+
+	return Image{}, fmt.Errorf("Unknown Error Occured , Check the key , Status : " + resp.Status)
 }

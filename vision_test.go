@@ -9,6 +9,37 @@ var key string = "4f558a77503b46549ac0d784c1651d9e" // this code is sample , for
 
 var testFile string = "test.jpg"
 
+func TestThumbnail(t *testing.T) {
+	vision, err := New(key)
+	if err != nil {
+		t.Log(err)
+		return
+	}
+	result, err := vision.Thumbnail("https://portalstoragewuprod2.azureedge.net/vision/Analysis/1.jpg", ThumbnailOrder{
+		Width:  10,
+		Height: 10,
+	})
+	result.Save("temp.jpg")
+	if err != nil {
+		t.Log(err)
+		return
+	}
+}
+
+func TestGetModels(t *testing.T) {
+	vision, err := New(key)
+	if err != nil {
+		t.Log(err)
+		return
+	}
+	result, err := vision.GetModels()
+	if err != nil {
+		t.Log(err)
+		return
+	}
+	fmt.Println(result)
+}
+
 func TestFileOCR(t *testing.T) {
 	vision, err := New(key)
 	if err != nil {
