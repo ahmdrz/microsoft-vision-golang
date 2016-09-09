@@ -9,6 +9,50 @@ var key string = "4f558a77503b46549ac0d784c1651d9e" // this code is sample , for
 
 var testFile string = "test.jpg"
 
+func TestFileOCR(t *testing.T) {
+	vision, err := New(key)
+	if err != nil {
+		t.Log(err)
+		return
+	}
+	result, err := vision.OCRFile(testFile, OCROption{
+		Language: LANG_English,
+	})
+	if err != nil {
+		t.Log(err)
+		return
+	}
+	fmt.Println(result.String())
+}
+
+func TestFileDescribe(t *testing.T) {
+	vision, err := New(key)
+	if err != nil {
+		t.Log(err)
+		return
+	}
+	result, err := vision.DescribeFile(testFile, 1)
+	if err != nil {
+		t.Log(err)
+		return
+	}
+	fmt.Println(result)
+}
+
+func TestFileTag(t *testing.T) {
+	vision, err := New(key)
+	if err != nil {
+		t.Log(err)
+		return
+	}
+	result, err := vision.TagFile(testFile)
+	if err != nil {
+		t.Log(err)
+		return
+	}
+	fmt.Println(result)
+}
+
 func TestDescribe(t *testing.T) {
 	vision, err := New(key)
 	if err != nil {
@@ -23,7 +67,7 @@ func TestDescribe(t *testing.T) {
 	fmt.Println(result)
 }
 
-func TestFile(t *testing.T) {
+func TestFileAnalyze(t *testing.T) {
 	vision, err := New(key)
 	if err != nil {
 		t.Log(err)

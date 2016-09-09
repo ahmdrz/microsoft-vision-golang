@@ -93,7 +93,6 @@ func (vision *Vision) Tag(url string) (VisionResult, error) {
 
 	if resp.StatusCode == 200 {
 		body, _ := ioutil.ReadAll(resp.Body)
-		fmt.Println(string(body))
 
 		result := VisionResult{}
 		err = json.Unmarshal(body, &result)

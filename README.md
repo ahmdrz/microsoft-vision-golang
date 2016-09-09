@@ -27,7 +27,7 @@ go get github.com/ahmdrz/microsoft-vision-golang
 
 Here is a simple code
 
-If you haven't key visit [here](https://www.microsoft.com/cognitive-services/en-US/subscriptions)
+The key is subscription key which provides access to this API. Found in your subscriptions.
 
 Tags :
 
