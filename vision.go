@@ -78,7 +78,7 @@ func (vision *Vision) Analyze(url string, order VisualFeatures) (VisionResult, e
 		return VisionResult{}, fmt.Errorf(result.Code)
 	}
 
-	return VisionResult{}, fmt.Errorf("Unknown Error Occured , Check the key , Status : " + resp.Status)
+	return VisionResult{}, fmt.Errorf("Unknown Error Occurred , Check the key , Status : " + resp.Status)
 }
 
 func (vision *Vision) Tag(url string) (VisionResult, error) {
@@ -123,7 +123,7 @@ func (vision *Vision) Tag(url string) (VisionResult, error) {
 		return VisionResult{}, fmt.Errorf(result.Code)
 	}
 
-	return VisionResult{}, fmt.Errorf("Unknown Error Occured , Check the key , Status : " + resp.Status)
+	return VisionResult{}, fmt.Errorf("Unknown Error Occurred , Check the key , Status : " + resp.Status)
 }
 
 func (vision *Vision) OCR(url string, order OCROption) (VisionOCRResult, error) {
@@ -168,7 +168,7 @@ func (vision *Vision) OCR(url string, order OCROption) (VisionOCRResult, error) 
 		return VisionOCRResult{}, fmt.Errorf(result.Code)
 	}
 
-	return VisionOCRResult{}, fmt.Errorf("Unknown Error Occured , Check the key , Status : " + resp.Status)
+	return VisionOCRResult{}, fmt.Errorf("Unknown Error Occurred , Check the key , Status : " + resp.Status)
 }
 
 func (vision *Vision) Describe(url string, max int) (VisionResult, error) {
@@ -213,7 +213,7 @@ func (vision *Vision) Describe(url string, max int) (VisionResult, error) {
 		return VisionResult{}, fmt.Errorf(result.Code)
 	}
 
-	return VisionResult{}, fmt.Errorf("Unknown Error Occured , Check the key , Status : " + resp.Status)
+	return VisionResult{}, fmt.Errorf("Unknown Error Occurred , Check the key , Status : " + resp.Status)
 }
 
 func (vision *Vision) GetModels() ([]Model, error) {
@@ -258,7 +258,7 @@ func (vision *Vision) GetModels() ([]Model, error) {
 		return nil, fmt.Errorf(result.Code)
 	}
 
-	return nil, fmt.Errorf("Unknown Error Occured , Check the key , Status : " + resp.Status)
+	return nil, fmt.Errorf("Unknown Error Occurred , Check the key , Status : " + resp.Status)
 }
 
 func (vision *Vision) Thumbnail(url string, order ThumbnailOrder) (Image, error) {
@@ -305,5 +305,5 @@ func (vision *Vision) Thumbnail(url string, order ThumbnailOrder) (Image, error)
 		return Image{}, fmt.Errorf(result.Code)
 	}
 
-	return Image{}, fmt.Errorf("Unknown Error Occured , Check the key , Status : " + resp.Status)
+	return Image{}, fmt.Errorf("Unknown Error Occurred , Check the key , Status : " + resp.Status)
 }

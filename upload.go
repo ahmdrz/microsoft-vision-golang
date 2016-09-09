@@ -70,7 +70,7 @@ func (vision *Vision) AnalyzeFile(path string, order VisualFeatures) (VisionResu
 		return VisionResult{}, fmt.Errorf(result.Code)
 	}
 
-	return VisionResult{}, fmt.Errorf("Unknown Error Occured , Check the key , Status : " + resp.Status)
+	return VisionResult{}, fmt.Errorf("Unknown Error Occurred , Check the key , Status : " + resp.Status)
 }
 
 func (vision *Vision) TagFile(path string) (VisionResult, error) {
@@ -130,7 +130,7 @@ func (vision *Vision) TagFile(path string) (VisionResult, error) {
 		return VisionResult{}, fmt.Errorf(result.Code)
 	}
 
-	return VisionResult{}, fmt.Errorf("Unknown Error Occured , Check the key , Status : " + resp.Status)
+	return VisionResult{}, fmt.Errorf("Unknown Error Occurred , Check the key , Status : " + resp.Status)
 }
 
 func (vision *Vision) DescribeFile(path string, max int) (VisionResult, error) {
@@ -191,7 +191,7 @@ func (vision *Vision) DescribeFile(path string, max int) (VisionResult, error) {
 		return VisionResult{}, fmt.Errorf(result.Code)
 	}
 
-	return VisionResult{}, fmt.Errorf("Unknown Error Occured , Check the key , Status : " + resp.Status)
+	return VisionResult{}, fmt.Errorf("Unknown Error Occurred , Check the key , Status : " + resp.Status)
 }
 
 func (vision *Vision) OCRFile(path string, order OCROption) (VisionOCRResult, error) {
@@ -251,5 +251,5 @@ func (vision *Vision) OCRFile(path string, order OCROption) (VisionOCRResult, er
 		return VisionOCRResult{}, fmt.Errorf(result.Code)
 	}
 
-	return VisionOCRResult{}, fmt.Errorf("Unknown Error Occured , Check the key , Status : " + resp.Status)
+	return VisionOCRResult{}, fmt.Errorf("Unknown Error Occurred , Check the key , Status : " + resp.Status)
 }
